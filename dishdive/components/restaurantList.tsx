@@ -13,6 +13,7 @@ const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants }) => {
           key={index}
           name={restaurant.name}
           stars={restaurant.stars}
+          business_id={restaurant.business_id}
         />
       ))}
     </div>
