@@ -2,7 +2,13 @@
 
 import { useChatContext } from "@/context/chatContext";
 
-const RestaurantDetail = ({ params }) => {
+interface RestaurantPageProps {
+  params: {
+    business_id: string;
+  };
+}
+
+const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
   const business_id = params.business_id
   const { context } = useChatContext();
 

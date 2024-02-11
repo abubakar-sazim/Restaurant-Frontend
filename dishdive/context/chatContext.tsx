@@ -1,6 +1,11 @@
-"use client"
+"use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 
 interface ChatContextType {
   botQuestion: string;
@@ -23,16 +28,10 @@ export const useChatContext = () => {
   return context;
 };
 
-export const ChatProvider: React.FC = ({ children }) => {
-  const [botQuestion, setBotQuestion] = useState<string>(
-    localStorage.getItem("botQuestion") || ""
-  );
-  const [answer, setAnswer] = useState<string>(
-    localStorage.getItem("answer") || ""
-  );
-  const [context, setContext] = useState<any>(
-    JSON.parse(localStorage.getItem("context") || "null")
-  );
+export const ChatProvider: React.FC<PropsWithChildren> = ({ children }) => {
+  const [botQuestion, setBotQuestion] = useState<string>("");
+  const [answer, setAnswer] = useState<string>("");
+  const [context, setContext] = useState<any>(null);
 
   const updateChatContext = (
     newBotQuestion: string,
@@ -43,12 +42,6 @@ export const ChatProvider: React.FC = ({ children }) => {
     setAnswer(newAnswer);
     setContext(newContext);
   };
-
-  useEffect(() => {
-    localStorage.setItem("botQuestion", botQuestion);
-    localStorage.setItem("answer", answer);
-    localStorage.setItem("context", JSON.stringify(context));
-  }, [botQuestion, answer, context]);
 
   const contextValue: ChatContextType = {
     botQuestion,
