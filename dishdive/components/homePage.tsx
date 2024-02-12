@@ -16,9 +16,17 @@ const HomePage = () => {
   const handleButtonClick = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:8000/chat`, {
-        params: { question },
-      });
+      const response = await axios.post(
+        `http://localhost:8000/chat`,
+        {
+          question: question,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const data = response.data;
       updateChatContext(data.question, data.answer, data.context);
