@@ -7,19 +7,50 @@ import { useEffect, useState } from "react";
 import RestaurantList from "./restaurantList";
 import { useChatContext } from "@/context/chatContext";
 
+interface Message {
+  type: string;
+  message: string;
+}
+
 const HomePage = () => {
   const [question, setQuestion] = useState("");
   const { botQuestion, answer, context, updateChatContext } = useChatContext();
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [conversationHistory, setConversationHistory] = useState<Message[]>([]);
+  const [initialMessagesAdded, setInitialMessagesAdded] = useState(false);
+
+  useEffect(() => {
+    if (conversationHistory.length === 0 && !initialMessagesAdded) {
+      const initialConversation = [
+        { type: "Human", message: "Hello" },
+        { type: "AI", message: "Hi there, how can I assist you?" },
+      ];
+      setConversationHistory(initialConversation);
+      setInitialMessagesAdded(true);
+    }
+  }, [conversationHistory, initialMessagesAdded]);
 
   const handleButtonClick = async () => {
     setLoading(true);
     try {
+      let history = "";
+      conversationHistory.forEach((msg, index) => {
+        if (msg.type === "Human") {
+          history += `Human: ${msg.message}`;
+        } else if (msg.type === "AI") {
+          history += `AI: ${msg.message}`;
+        }
+        if (index < conversationHistory.length - 1) {
+          history += "\n";
+        }
+      });
+
       const response = await axios.post(
         `http://localhost:8000/chat`,
         {
           question: question,
+          history: history,
         },
         {
           headers: {
@@ -29,6 +60,12 @@ const HomePage = () => {
       );
 
       const data = response.data;
+      const newConversation = [
+        ...conversationHistory,
+        { type: "Human", message: question },
+        { type: "AI", message: data.answer },
+      ];
+      setConversationHistory(newConversation);
       updateChatContext(data.question, data.answer, data.context);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -40,6 +77,13 @@ const HomePage = () => {
   useEffect(() => {
     setButtonDisabled(question.trim() === "" || loading);
   }, [question, loading]);
+
+  useEffect(() => {
+    sessionStorage.setItem(
+      "conversationHistory",
+      JSON.stringify(conversationHistory)
+    );
+  }, [conversationHistory]);
 
   return (
     <div className="text-center mt-8">
