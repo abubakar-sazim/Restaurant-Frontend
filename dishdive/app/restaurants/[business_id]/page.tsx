@@ -1,7 +1,10 @@
 "use client";
 
+import MapComponent from "@/components/map";
+import Rating from "@/components/rating";
+import { Badge } from "@/components/ui/badge";
 import { useChatContext } from "@/context/chatContext";
-import { FaStar } from "react-icons/fa";
+import { SlLocationPin } from "react-icons/sl";
 
 interface RestaurantPageProps {
   params: {
@@ -45,104 +48,124 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
   const review = restaurantData ? restaurantData.text : "N/A";
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <div className="max-w-3xl mx-auto px-4 py-8 grid grid-rows-auto gap-y-10">
       {restaurantData ? (
         <>
-          <h1 className="text-3xl font-semibold mb-4">{name}</h1>
-
-          <div className="flex items-center mb-4">
-            <FaStar className="text-yellow-500 mr-2" />
-            <span>{stars}</span>
+          <div className="grid grid-rows-auto gap-y-4">
+            <h1 className="text-3xl font-semibold mb-4">{name}</h1>
+            <div className="flex">
+              <SlLocationPin className="text-green-600 mr-2" />
+              <p className="text-md italic">{fullAddress}</p>
+            </div>
+            <div>
+              <strong>Categories:</strong>{" "}
+              {categories.split(",").map((category) => (
+                <Badge key={category} variant="outline">
+                  {category.trim()}
+                </Badge>
+              ))}
+            </div>
+            <div>
+              <Rating rating={stars} size={40} />
+            </div>
           </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="col-span-1">
+              <div className="p-4">
+                <MapComponent location={fullAddress} />
+              </div>
+              <div className="p-4 mt-2">
+                <table className="min-w-full divide-y divide-gray-200 mt-4">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Attribute
+                      </th>
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Value
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    <tr>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        <strong>Alcohol</strong>
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap">{alcohol}</td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        <strong>Accepts Credit Cards</strong>
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        {businessAcceptsCreditCards}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        <strong>Good for Kids</strong>
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        {goodForKids}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        <strong>Has TV</strong>
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap">{hasTV}</td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        <strong>Noise Level</strong>
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        {noiseLevel}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        <strong>Outdoor Seating</strong>
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        {outdoorSeating}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        <strong>Parking</strong>
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap">{parking}</td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        <strong>Delivery</strong>
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        {restaurantsDelivery}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        <strong>Good for Groups</strong>
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        {restaurantsGoodForGroups}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-          <p>
-            <strong>Categories:</strong> {categories}
-          </p>
-          <p>
-            <strong>Full Address:</strong> {fullAddress}
-          </p>
-
-          <div className="container mx-auto">
-            <table className="min-w-full divide-y divide-gray-200 mt-4">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Attribute
-                  </th>
-                  <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Value
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    <strong>Alcohol</strong>
-                  </td>
-                  <td className="px-3 py-2 whitespace-nowrap">{alcohol}</td>
-                </tr>
-                <tr>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    <strong>Accepts Credit Cards</strong>
-                  </td>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    {businessAcceptsCreditCards}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    <strong>Good for Kids</strong>
-                  </td>
-                  <td className="px-3 py-2 whitespace-nowrap">{goodForKids}</td>
-                </tr>
-                <tr>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    <strong>Has TV</strong>
-                  </td>
-                  <td className="px-3 py-2 whitespace-nowrap">{hasTV}</td>
-                </tr>
-                <tr>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    <strong>Noise Level</strong>
-                  </td>
-                  <td className="px-3 py-2 whitespace-nowrap">{noiseLevel}</td>
-                </tr>
-                <tr>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    <strong>Outdoor Seating</strong>
-                  </td>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    {outdoorSeating}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    <strong>Parking</strong>
-                  </td>
-                  <td className="px-3 py-2 whitespace-nowrap">{parking}</td>
-                </tr>
-                <tr>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    <strong>Delivery</strong>
-                  </td>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    {restaurantsDelivery}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    <strong>Good for Groups</strong>
-                  </td>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    {restaurantsGoodForGroups}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="col-span-1">
+              <div className=" p-4">
+                <p className="mt-2">
+                  <strong>Review:</strong> {review}
+                </p>
+              </div>
+            </div>
           </div>
-          <p className="mt-4">
-            <strong>Review:</strong> {review}
-          </p>
         </>
       ) : (
         <p>No data found for this restaurant.</p>
