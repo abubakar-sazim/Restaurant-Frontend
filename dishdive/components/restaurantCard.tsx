@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import Rating from "./rating";
 
 export interface Restaurant {
   name: string;
@@ -8,32 +9,28 @@ export interface Restaurant {
 }
 
 const RestaurantCard: React.FC<Restaurant> = ({ name, stars, business_id }) => {
+  const generateRandomImage = () => {
+    const randomImageIndex = Math.floor(Math.random() * 1000);
+    const query = encodeURIComponent("restaurant food");
+    return `https://source.unsplash.com/random/300x300/?${query}&sig=${randomImageIndex}`;
+  };
+
   return (
-    <div className="w-3/4 mx-auto my-4">
+    <div className="w-3/4 mx-auto my-4 relative">
       <Link href={`/restaurants/${business_id}`} className="hover:underline">
         <div className="flex rounded-lg overflow-hidden items-center shadow-lg">
           <img
             className="w-20 h-20 object-cover object-center rounded-l"
-            src="https://via.placeholder.com/300"
+            src={generateRandomImage()}
             alt="Restaurant"
           />
 
-          <div className="flex-grow p-6">
-            <div className="font-bold text-xl mb-2">{name}</div>
-
-            <div className="flex items-center mb-2">
-              <svg
-                className="fill-current text-yellow-500 w-4 h-4 mr-2"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path d="M10 1l2.5 6H18l-4 4 1 6-5-3-5 3 1-6-4-4h5.5L10 1z" />
-              </svg>
-              <div
-                className="bg-yellow-200 h-4 w-full rounded"
-                style={{ width: `${(stars / 5) * 100}%` }}
-              ></div>
-              <span className="ml-2">{stars}</span>
+          <div className="flex-grow p-6 flex flex-col justify-between">
+            <div className="flex justify-between items-center">
+              <div className="font-bold text-xl">{name}</div>
+              <div className="absolute top-0 right-0 mt-2 mr-2">
+                <Rating rating={stars} />
+              </div>
             </div>
           </div>
         </div>
