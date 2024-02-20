@@ -5,7 +5,6 @@ const MapComponent = ({ location }) => {
   const [mapCenter, setMapCenter] = useState({ lat: 0, lng: 0 });
 
   useEffect(() => {
-    // Update map center when location changes
     if (location && location.lat && location.lng) {
       setMapCenter({ lat: location.lat, lng: location.lng });
     }

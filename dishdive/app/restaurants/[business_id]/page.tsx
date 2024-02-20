@@ -14,7 +14,7 @@ interface RestaurantPageProps {
 
 const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
   const business_id = params.business_id;
-  const { context } = useChatContext();
+  const { context, reviews } = useChatContext();
 
   const restaurantData =
     context[`id_0`] && context[`id_0`].business_id === business_id
@@ -24,6 +24,9 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
       : context[`id_2`] && context[`id_2`].business_id === business_id
       ? context[`id_2`]
       : null;
+
+  const businessReviews = reviews[business_id];
+  console.log(businessReviews);
 
   const alcohol = restaurantData ? restaurantData.Alcohol : "N/A";
   const name = restaurantData ? restaurantData.name : "N/A";
@@ -161,7 +164,13 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
             <div className="col-span-1">
               <div className=" p-4">
                 <p className="mt-2">
-                  <strong>Review:</strong> {review}
+                  <strong>Review:</strong>
+                  {businessReviews.map((review) => (
+                    <>
+                      <p>{review.trim()}</p>
+                      <br />
+                    </>
+                  ))}
                 </p>
               </div>
             </div>

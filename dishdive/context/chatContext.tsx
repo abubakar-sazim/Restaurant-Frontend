@@ -11,10 +11,12 @@ interface ChatContextType {
   botQuestion: string;
   answer: string;
   context: any;
+  reviews: any;
   updateChatContext: (
     newBotQuestion: string,
     newAnswer: string,
-    newContext: any
+    newContext: any,
+    newReviews: any,
   ) => void;
 }
 
@@ -32,21 +34,25 @@ export const ChatProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [botQuestion, setBotQuestion] = useState<string>("");
   const [answer, setAnswer] = useState<string>("");
   const [context, setContext] = useState<any>(null);
+  const [reviews, setReviews] = useState<any>(null);
 
   const updateChatContext = (
     newBotQuestion: string,
     newAnswer: string,
-    newContext: any
+    newContext: any,
+    newReviews: any
   ) => {
     setBotQuestion(newBotQuestion);
     setAnswer(newAnswer);
     setContext(newContext);
+    setReviews(newReviews);
   };
 
   const contextValue: ChatContextType = {
     botQuestion,
     answer,
     context,
+    reviews,
     updateChatContext,
   };
 

@@ -59,6 +59,8 @@ const HomePage = () => {
         }
       );
 
+      console.log(response.data)
+
       const data = response.data;
       const newConversation = [
         ...conversationHistory,
@@ -66,7 +68,7 @@ const HomePage = () => {
         { type: "AI", message: data.answer },
       ];
       setConversationHistory(newConversation);
-      updateChatContext(data.question, data.answer, data.context);
+      updateChatContext(data.question, data.answer, data.context, data.reviews);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
