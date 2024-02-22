@@ -26,7 +26,6 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
       : null;
 
   const businessReviews = reviews[business_id];
-  console.log(businessReviews);
 
   const alcohol = restaurantData ? restaurantData.Alcohol : "N/A";
   const name = restaurantData ? restaurantData.name : "N/A";
@@ -49,6 +48,12 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
   const city = restaurantData ? restaurantData.city : "N/A";
   const fullAddress = restaurantData ? restaurantData.full_address : "N/A";
   const review = restaurantData ? restaurantData.text : "N/A";
+  let wifi = restaurantData ? restaurantData.WiFi : "N/A";
+  if (wifi === "o") {
+    wifi = "no";
+  } else if (wifi === "ree") {
+    wifi = "free";
+  }
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 grid grid-rows-auto gap-y-10">
@@ -62,7 +67,7 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
             </div>
             <div>
               <strong>Categories:</strong>{" "}
-              {categories.split(",").map((category) => (
+              {categories.split(",").map((category: string) => (
                 <Badge key={category} variant="outline">
                   {category.trim()}
                 </Badge>
@@ -95,6 +100,12 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
                         <strong>Alcohol</strong>
                       </td>
                       <td className="px-3 py-2 whitespace-nowrap">{alcohol}</td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 whitespace-nowrap">
+                        <strong>Wifi</strong>
+                      </td>
+                      <td className="px-3 py-2 whitespace-nowrap">{wifi}</td>
                     </tr>
                     <tr>
                       <td className="px-3 py-2 whitespace-nowrap">
@@ -165,7 +176,7 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
               <div className=" p-4">
                 <p className="mt-2">
                   <strong>Review:</strong>
-                  {businessReviews.map((review) => (
+                  {businessReviews.map((review: string) => (
                     <>
                       <p>{review.trim()}</p>
                       <br />
