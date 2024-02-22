@@ -18,6 +18,7 @@ interface ChatContextType {
     newContext: any,
     newReviews: any,
   ) => void;
+  clearChatContext: () => void;
 }
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
@@ -48,12 +49,20 @@ export const ChatProvider: React.FC<PropsWithChildren> = ({ children }) => {
     setReviews(newReviews);
   };
 
+  const clearChatContext = () => {
+    setBotQuestion("");
+    setAnswer("");
+    setContext(null);
+    setReviews(null);
+  };
+
   const contextValue: ChatContextType = {
     botQuestion,
     answer,
     context,
     reviews,
     updateChatContext,
+    clearChatContext,
   };
 
   return (

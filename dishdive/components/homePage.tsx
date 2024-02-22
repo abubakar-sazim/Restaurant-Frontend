@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import RestaurantList from "./restaurantList";
 import { useChatContext } from "@/context/chatContext";
+import RestaurantSkeleton from "./restaurnatSkeleton";
 
 interface Message {
   type: string;
@@ -14,7 +15,8 @@ interface Message {
 
 const HomePage = () => {
   const [question, setQuestion] = useState("");
-  const { botQuestion, answer, context, updateChatContext } = useChatContext();
+  const { botQuestion, answer, context, updateChatContext, clearChatContext } =
+    useChatContext();
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const [conversationHistory, setConversationHistory] = useState<Message[]>([]);
@@ -33,6 +35,7 @@ const HomePage = () => {
 
   const handleButtonClick = async () => {
     setLoading(true);
+    clearChatContext();
     try {
       let history = "";
       conversationHistory.forEach((msg, index) => {
@@ -58,8 +61,6 @@ const HomePage = () => {
           },
         }
       );
-
-      console.log(response.data)
 
       const data = response.data;
       const newConversation = [
@@ -105,6 +106,13 @@ const HomePage = () => {
       >
         {loading ? "Finding perfect restaurant for you..." : "Find"}
       </Button>
+      {loading && (
+        <>
+          <RestaurantSkeleton />
+          <RestaurantSkeleton />
+          <RestaurantSkeleton />
+        </>
+      )}
       <div>
         {botQuestion && (
           <p>
