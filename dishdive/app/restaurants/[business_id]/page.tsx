@@ -5,12 +5,27 @@ import Rating from "@/components/rating";
 import { Badge } from "@/components/ui/badge";
 import { useChatContext } from "@/context/chatContext";
 import { SlLocationPin } from "react-icons/sl";
+import { faker } from "@faker-js/faker";
+import Avatar from "react-avatar";
 
 interface RestaurantPageProps {
   params: {
     business_id: string;
   };
 }
+
+const generateFakename = () => {
+  const firstName = faker.person.firstName();
+  const lastName = faker.person.lastName();
+
+  return `${firstName} ${lastName}`;
+};
+
+const splitTextToSentences = (text: string) => {
+  const sentences = text.split(/\. |\.\n|\.$/);
+  const firstThreeSentences = sentences.slice(0, 3);
+  return firstThreeSentences.join(". ");
+};
 
 const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
   const business_id = params.business_id;
@@ -80,9 +95,11 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-1">
               <div className="p-4">
+                <strong>Location:</strong>
                 <MapComponent location={fullAddress} />
               </div>
               <div className="p-4 mt-2">
+                <strong>Attributes:</strong>
                 <table className="min-w-full divide-y divide-gray-200 mt-4">
                   <thead className="bg-gray-50">
                     <tr>
@@ -176,9 +193,25 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
               <div className=" p-4">
                 <p className="mt-2">
                   <strong>Review:</strong>
+                  {review && (
+                    <>
+                      <div className="flex items-center mb-2">
+                        <Avatar name={generateFakename()} size="30" round />
+                        <strong className="ml-3">{generateFakename()}</strong>
+                      </div>
+                      <p>{splitTextToSentences(review)}</p>
+                    </>
+                  )}
+                  <br />
                   {businessReviews.map((review: string) => (
                     <>
-                      <p>{review.trim()}</p>
+                      <>
+                        <div className="flex items-center mb-2">
+                          <Avatar name={generateFakename()} size="30" round />
+                          <strong className="ml-3">{generateFakename()}</strong>
+                        </div>
+                        <p>{splitTextToSentences(review.trim())}</p>
+                      </>
                       <br />
                     </>
                   ))}
