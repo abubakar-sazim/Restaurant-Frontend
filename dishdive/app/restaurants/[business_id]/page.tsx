@@ -5,6 +5,8 @@ import Rating from "@/components/rating";
 import { Badge } from "@/components/ui/badge";
 import { useChatContext } from "@/context/chatContext";
 import { SlLocationPin } from "react-icons/sl";
+import { MdFeedback } from "react-icons/md";
+import { MdFormatListBulleted } from "react-icons/md";
 import { faker } from "@faker-js/faker";
 import Avatar from "react-avatar";
 
@@ -76,9 +78,11 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
         <>
           <div className="grid grid-rows-auto gap-y-4">
             <h1 className="text-3xl font-semibold mb-4">{name}</h1>
-            <div className="flex">
-              <SlLocationPin className="text-green-600 mr-2" />
-              <p className="text-md italic">{fullAddress}</p>
+            <div className="flex items-center">
+              <div className="absolute h-8 w-8 rounded-full bg-blue-400 flex items-center justify-center">
+                <SlLocationPin className="text-white" />
+              </div>
+              <p className="text-md italic ml-10">{fullAddress}</p>
             </div>
             <div>
               <strong>Categories:</strong>{" "}
@@ -92,21 +96,36 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
               <Rating rating={stars} size={40} />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="col-span-1">
-              <div className="p-4">
-                <strong>Location:</strong>
+              <div className="p-2 flex items-center">
+                <div className="relative flex items-center">
+                  <div className=" h-8 w-8 rounded-full bg-blue-400 flex items-center justify-center">
+                    <SlLocationPin className="text-white" />
+                  </div>
+                  <h1 className="ml-2 text-center font-bold text-lg">
+                    Location
+                  </h1>
+                </div>
+              </div>
+              <div className="p-2 flex items-center justify-center">
                 <MapComponent location={fullAddress} />
               </div>
+
               <div className="p-4 mt-2">
-                <strong>Attributes:</strong>
+                <div className="flex items-center">
+                  <div className="h-8 w-8 rounded-full bg-blue-400 flex items-center justify-center">
+                    <MdFormatListBulleted className="text-white" />
+                  </div>
+                  <h1 className="ml-2 font-bold text-lg">Attributes</h1>
+                </div>
                 <table className="min-w-full divide-y divide-gray-200 mt-4">
-                  <thead className="bg-gray-50">
+                  <thead className="bg-blue-200">
                     <tr>
-                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-2 text-left text-xs font-lg uppercase tracking-wider">
                         Attribute
                       </th>
-                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-2 text-left text-xs font-lg uppercase tracking-wider">
                         Value
                       </th>
                     </tr>
@@ -114,19 +133,19 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
                   <tbody className="bg-white divide-y divide-gray-200">
                     <tr>
                       <td className="px-3 py-2 whitespace-nowrap">
-                        <strong>Alcohol</strong>
+                        <p>Alcohol</p>
                       </td>
                       <td className="px-3 py-2 whitespace-nowrap">{alcohol}</td>
                     </tr>
                     <tr>
                       <td className="px-3 py-2 whitespace-nowrap">
-                        <strong>Wifi</strong>
+                        <p>Wifi</p>
                       </td>
                       <td className="px-3 py-2 whitespace-nowrap">{wifi}</td>
                     </tr>
                     <tr>
                       <td className="px-3 py-2 whitespace-nowrap">
-                        <strong>Accepts Credit Cards</strong>
+                        <p>Accepts Credit Cards</p>
                       </td>
                       <td className="px-3 py-2 whitespace-nowrap">
                         {businessAcceptsCreditCards}
@@ -134,7 +153,7 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
                     </tr>
                     <tr>
                       <td className="px-3 py-2 whitespace-nowrap">
-                        <strong>Good for Kids</strong>
+                        <p>Good for Kids</p>
                       </td>
                       <td className="px-3 py-2 whitespace-nowrap">
                         {goodForKids}
@@ -142,13 +161,13 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
                     </tr>
                     <tr>
                       <td className="px-3 py-2 whitespace-nowrap">
-                        <strong>Has TV</strong>
+                        <p>Has TV</p>
                       </td>
                       <td className="px-3 py-2 whitespace-nowrap">{hasTV}</td>
                     </tr>
                     <tr>
                       <td className="px-3 py-2 whitespace-nowrap">
-                        <strong>Noise Level</strong>
+                        <p>Noise Level</p>
                       </td>
                       <td className="px-3 py-2 whitespace-nowrap">
                         {noiseLevel}
@@ -156,7 +175,7 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
                     </tr>
                     <tr>
                       <td className="px-3 py-2 whitespace-nowrap">
-                        <strong>Outdoor Seating</strong>
+                        <p>Outdoor Seating</p>
                       </td>
                       <td className="px-3 py-2 whitespace-nowrap">
                         {outdoorSeating}
@@ -164,13 +183,13 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
                     </tr>
                     <tr>
                       <td className="px-3 py-2 whitespace-nowrap">
-                        <strong>Parking</strong>
+                        <p>Parking</p>
                       </td>
                       <td className="px-3 py-2 whitespace-nowrap">{parking}</td>
                     </tr>
                     <tr>
                       <td className="px-3 py-2 whitespace-nowrap">
-                        <strong>Delivery</strong>
+                        <p>Delivery</p>
                       </td>
                       <td className="px-3 py-2 whitespace-nowrap">
                         {restaurantsDelivery}
@@ -178,7 +197,7 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
                     </tr>
                     <tr>
                       <td className="px-3 py-2 whitespace-nowrap">
-                        <strong>Good for Groups</strong>
+                        <p>Good for Groups</p>
                       </td>
                       <td className="px-3 py-2 whitespace-nowrap">
                         {restaurantsGoodForGroups}
@@ -191,15 +210,24 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
 
             <div className="col-span-1">
               <div className=" p-4">
-                <p className="mt-2">
-                  <strong>Review:</strong>
+                <div className="flex items-center">
+                  <div className="h-8 w-8 rounded-full bg-blue-400 flex items-center justify-center">
+                    <MdFeedback className="text-white" />
+                  </div>
+                  <h1 className="ml-2 font-bold text-lg">Reviews</h1>
+                </div>
+                <div className="mt-4">
                   {review && (
                     <>
                       <div className="flex items-center mb-2">
                         <Avatar name={generateFakename()} size="30" round />
-                        <strong className="ml-3">{generateFakename()}</strong>
+                        <h1 className="ml-3 font-medium">
+                          {generateFakename()}
+                        </h1>
                       </div>
-                      <p>{splitTextToSentences(review)}</p>
+                      <p className="text-sm ml-3">
+                        {splitTextToSentences(review)}
+                      </p>
                     </>
                   )}
                   <br />
@@ -208,14 +236,18 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
                       <>
                         <div className="flex items-center mb-2">
                           <Avatar name={generateFakename()} size="30" round />
-                          <strong className="ml-3">{generateFakename()}</strong>
+                          <h1 className="ml-3 font-medium">
+                            {generateFakename()}
+                          </h1>
                         </div>
-                        <p>{splitTextToSentences(review.trim())}</p>
+                        <p className="text-sm ml-3">
+                          {splitTextToSentences(review.trim())}
+                        </p>
                       </>
                       <br />
                     </>
                   ))}
-                </p>
+                </div>
               </div>
             </div>
           </div>
