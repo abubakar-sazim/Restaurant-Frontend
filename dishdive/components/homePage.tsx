@@ -114,14 +114,14 @@ const HomePage = () => {
           <RestaurantSkeleton />
         </>
       )}
-      <div>
+      <div className="mt-4">
         {botQuestion && (
           <p>
-            Result for <b>{botQuestion}</b>
+            Results for <b>{botQuestion}</b>
           </p>
         )}
       </div>
-      <div>
+      <div className="mt-4">
         {context && <RestaurantList restaurants={Object.values(context)} />}
       </div>
     </div>

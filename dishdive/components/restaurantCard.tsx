@@ -6,14 +6,14 @@ import { SlLocationPin } from "react-icons/sl";
 export interface Restaurant {
   name: string;
   stars: number;
-  address: string;
+  full_address: string;
   business_id: string;
 }
 
 const RestaurantCard: React.FC<Restaurant> = ({
   name,
   stars,
-  address,
+  full_address,
   business_id,
 }) => {
   const generateRandomImage = () => {
@@ -23,7 +23,7 @@ const RestaurantCard: React.FC<Restaurant> = ({
   };
 
   return (
-    <div className="w-3/4 mx-auto my-4 relative">
+    <div className="w-3/4 mx-auto my-2 relative">
       <Link href={`/restaurants/${business_id}`} className="hover:opacity-50">
         <div className="flex rounded-lg overflow-hidden items-start shadow-lg">
           <img
@@ -32,12 +32,12 @@ const RestaurantCard: React.FC<Restaurant> = ({
             alt="Restaurant"
           />
 
-          <div className="flex-grow p-6 flex flex-col justify-between">
+          <div className="flex-grow ml-4 mt-2 flex flex-col justify-between">
             <div className="flex flex-col items-start">
-              <div className="font-bold text-xl">{name}</div>
-              <div className="flex">
-                <SlLocationPin className="text-green-600 mr-2" />
-                <p className="text-md italic">{address}</p>
+              <div className="font-bold text-xl mb-1">{name}</div>
+              <div className="flex items-center">
+                <SlLocationPin className="text-green-600 mr-1" />
+                <p className="text-md italic">{full_address}</p>
               </div>
             </div>
             <div className="flex justify-between items-center">
