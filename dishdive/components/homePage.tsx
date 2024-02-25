@@ -89,14 +89,15 @@ const HomePage = () => {
   }, [conversationHistory]);
 
   return (
-    <div className="text-center mt-8">
+    <div className="text-center mt-8 mb-3">
       <h1 className="text-3xl font-bold mb-4">DishDive</h1>
       <p className="text-lg mb-8">
         An AI-powered restaurant finder tailored to your needs.
       </p>
       <Input
-        className="mb-4"
+        className="mb-4 rounded-full"
         value={question}
+        placeholder="What type of restaurant you want to find?"
         onChange={(e) => setQuestion(e.target.value)}
       />
       <Button
@@ -116,7 +117,7 @@ const HomePage = () => {
       <div>
         {botQuestion && (
           <p>
-            Looking for <b>{botQuestion}</b>
+            Result for <b>{botQuestion}</b>
           </p>
         )}
       </div>
