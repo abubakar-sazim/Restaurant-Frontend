@@ -19,20 +19,27 @@ const RestaurantCard: React.FC<Restaurant> = ({
   const generateRandomImage = () => {
     const randomImageIndex = Math.floor(Math.random() * 1000);
     const query = encodeURIComponent("restaurant food");
-    return `https://source.unsplash.com/random/300x300/?${query}&sig=${randomImageIndex}`;
+    const screenWidth = window.innerWidth;
+    const isSmallScreen = screenWidth <= 640;
+
+    if (isSmallScreen) {
+      return `https://source.unsplash.com/random/300x150/?${query}&sig=${randomImageIndex}`;
+    } else {
+      return `https://source.unsplash.com/random/300x300/?${query}&sig=${randomImageIndex}`;
+    }
   };
 
   return (
     <div className="w-3/4 mx-auto my-2 relative">
       <Link href={`/restaurants/${business_id}`} className="hover:opacity-50">
-        <div className="flex rounded-lg overflow-hidden items-start shadow-lg">
+        <div className="flex flex-col sm:flex-row rounded-lg overflow-hidden items-start shadow-lg">
           <img
-            className="w-20 object-cover object-center rounded-l"
+            className="w-full sm:w-20 object-cover object-center rounded-t sm:rounded-l"
             src={generateRandomImage()}
             alt="Restaurant"
           />
 
-          <div className="flex-grow ml-4 mt-2 flex flex-col justify-between">
+          <div className="flex-grow ml-4 mt-2 sm:mt-0 flex flex-col justify-between">
             <div className="flex flex-col items-start">
               <div className="font-bold text-xl mb-1">{name}</div>
               <div className="flex items-center">
@@ -41,8 +48,9 @@ const RestaurantCard: React.FC<Restaurant> = ({
               </div>
             </div>
             <div className="flex justify-between items-center">
-              <div className="absolute top-0 right-0 mt-2 mr-2">
+              <div className="sm:absolute top-0 right-0 mt-2 mr-2">
                 <Rating rating={stars} />
+                <div className="mt-4 lg:mt-0"></div>
               </div>
             </div>
           </div>
