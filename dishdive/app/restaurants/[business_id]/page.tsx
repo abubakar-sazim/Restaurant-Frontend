@@ -9,6 +9,7 @@ import { MdFeedback } from "react-icons/md";
 import { MdFormatListBulleted } from "react-icons/md";
 import { faker } from "@faker-js/faker";
 import Avatar from "react-avatar";
+import MapContainer from "@/components/map";
 
 interface RestaurantPageProps {
   params: {
@@ -109,7 +110,7 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
                 </div>
               </div>
               <div className="p-2 flex items-center justify-center">
-                <MapComponent location={fullAddress} />
+                <MapContainer location={fullAddress} />
               </div>
 
               <div className="p-4 mt-2">

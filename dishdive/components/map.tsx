@@ -1,26 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import { GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
+import React, { useState, useEffect } from "react";
+import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
+require("dotenv").config();
 
-const MapComponent = ({ location }) => {
+interface Location {
+  location: number;
+  lng: number;
+}
+
+const MapComponent: React.FC<{ location: Location }> = ({ location }) => {
   const [mapCenter, setMapCenter] = useState({ lat: 0, lng: 0 });
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
   useEffect(() => {
-    if (location && location.lat && location.lng) {
-      setMapCenter({ lat: location.lat, lng: location.lng });
-    }
+    fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+        location
+      )}&key=${apiKey}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const { lat, lng } = data.results[0].geometry.location;
+        setMapCenter({ lat, lng });
+      })
+      .catch((error) => console.error("Error fetching geocoding data:", error));
   }, [location]);
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyDVVElh61AtQymBBzyx8S-U42gvIGBrYIU">
-      <GoogleMap
-        center={mapCenter}
-        zoom={10}
-        mapContainerStyle={{ width: '100%', height: '400px' }}
-      >
-        <Marker position={mapCenter} />
-      </GoogleMap>
-    </LoadScript>
+    <GoogleMap
+      center={mapCenter}
+      zoom={13}
+      mapContainerStyle={{ width: "100%", height: "400px" }}
+    >
+      <Marker position={mapCenter} />
+    </GoogleMap>
   );
 };
 
-export default MapComponent;
+const MapContainer: React.FC<{ location: Location }> = ({ location }) => {
+  const [apiLoaded, setApiLoaded] = useState(false);
+
+  useEffect(() => {
+    if (window.google) {
+      setApiLoaded(true);
+    }
+  }, []);
+
+  return (
+    <>
+      {apiLoaded ? (
+        <MapComponent location={location} />
+      ) : (
+        <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
+          <MapComponent location={location} />
+        </LoadScript>
+      )}
+    </>
+  );
+};
+
+export default MapContainer;
