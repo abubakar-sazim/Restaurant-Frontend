@@ -50,7 +50,7 @@ const HomePage = () => {
       });
 
       const response = await axios.post(
-        `http://localhost:8000/chat`,
+        `${process.env.NEXT_PUBLIC_BE_URL}/chat`,
         {
           question: question,
           history: history,

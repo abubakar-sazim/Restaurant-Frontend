@@ -4,11 +4,14 @@ import AllReviews from "./AllReviews";
 import React from "react";
 
 interface reviewPageProps {
-    businessId: string;
-    restaurantReviews: string[];
+  businessId: string;
+  restaurantReviews: string[];
 }
 
-const Reviews: React.FC<reviewPageProps> = ({ businessId, restaurantReviews }) => {
+const Reviews: React.FC<reviewPageProps> = ({
+  businessId,
+  restaurantReviews,
+}) => {
   return (
     <div className=" p-4">
       <div className="flex items-center">
