@@ -4,9 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import RestaurantList from "./restaurantList";
+import RestaurantList from "./RestaurantList";
 import { useChatContext } from "@/context/chatContext";
-import RestaurantSkeleton from "./restaurnatSkeleton";
+import RestaurantSkeleton from "./RestaurnatSkeleton";
 
 interface Message {
   type: string;

@@ -1,7 +1,7 @@
 import {
   generateFakename,
   splitTextToSentences,
-} from "@/helper/processFunctions";
+} from "@/components/Helper/processFunctions";
 import Avatar from "react-avatar";
 
 interface AllReviewsProps {

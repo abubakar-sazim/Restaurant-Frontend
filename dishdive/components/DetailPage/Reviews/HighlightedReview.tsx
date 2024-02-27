@@ -1,4 +1,6 @@
 import { useChatContext } from "@/context/chatContext";
+import { generateFakename } from "@/components/Helper/processFunctions";
+import Avatar from "react-avatar";
 
 interface RestaurantPageProps {
   params: {
@@ -25,8 +27,12 @@ const HighlightedReview: React.FC<RestaurantPageProps> = ({ params }) => {
 
   const review = restaurantData ? restaurantData.text : "N/A";
   return (
-    <div className="bg-orange-100 border border-gray-300 p-4 rounded-md text-sm">
-      {review}
+    <div className="bg-orange-100 border border-gray-300 p-2 rounded-md text-sm">
+      <div className="flex items-center  mb-2">
+        <Avatar name={generateFakename()} size="25" round />
+        <h1 className="ml-3 font-medium">{generateFakename()}</h1>
+      </div>
+      <p className="text-sm ml-3 text-justify">{review}</p>
     </div>
   );
 };

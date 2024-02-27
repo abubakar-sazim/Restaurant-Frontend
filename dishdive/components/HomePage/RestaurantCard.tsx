@@ -1,21 +1,22 @@
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
-import Rating from "./rating";
+import Rating from "../Helper/Rating";
 import { SlLocationPin } from "react-icons/sl";
 
 export interface Restaurant {
   name: string;
   stars: number;
-  fullAddress: string;
-  businessId: string;
+  full_address: string;
+  business_id: string;
   text: string;
 }
 
 const RestaurantCard: React.FC<Restaurant> = ({
   name,
   stars,
-  fullAddress,
-  businessId,
+  full_address,
+  business_id,
   text,
 }) => {
   const generateRandomImage = () => {
@@ -32,11 +33,13 @@ const RestaurantCard: React.FC<Restaurant> = ({
   };
 
   return (
-    <div className="w-3/4 mx-auto my-2 relative">
-      <Link href={`/restaurants/${businessId}`} className="hover:opacity-50">
+    <div className="w-3/4 mx-auto my-2 p-2 relative">
+      <Link href={`/restaurants/${business_id}`} className="hover:opacity-50">
         <div className="flex flex-col sm:flex-row rounded-lg overflow-hidden items-start shadow-lg">
-          <img
-            className="w-full sm:w-20 h-auto object-cover object-center rounded-t sm:rounded-l"
+          <Image
+            className="sm:w-20 h-auto object-cover object-center rounded-t sm:rounded-l"
+            height={300}
+            width={300}
             src={generateRandomImage()}
             alt="Restaurant"
           />
@@ -46,11 +49,11 @@ const RestaurantCard: React.FC<Restaurant> = ({
               <div className="font-bold text-xl mb-1">{name}</div>
               <div className="flex items-center">
                 <SlLocationPin className="text-green-600 mr-1" />
-                <p className="text-md italic">{fullAddress}</p>
+                <p className="text-md italic">{full_address}</p>
               </div>
               <div>
-                <p className="text-justify text-xs italic border-l-4 border-gray-500 pl-2 py-1 mr-3">
-                  {text}
+                <p className="text-justify text-xs italic border-l-4 border-gray-500 mb-3 pl-2 py-1 mr-3">
+                  "{text}"
                 </p>
               </div>
             </div>

@@ -1,5 +1,5 @@
-import { Restaurant } from "./restaurantCard";
-import RestaurantCard from "./restaurantCard";
+import { Restaurant } from "./RestaurantCard";
+import RestaurantCard from "./RestaurantCard";
 
 interface RestaurantListProps {
   restaurants: Restaurant[];
@@ -13,8 +13,8 @@ const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants }) => {
           key={index}
           name={restaurant.name}
           stars={restaurant.stars}
-          fullAddress={restaurant.fullAddress}
-          businessId={restaurant.businessId}
+          full_address={restaurant.full_address}
+          business_id={restaurant.business_id}
           text={restaurant.text}
         />
       ))}

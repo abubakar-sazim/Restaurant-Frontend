@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
+import axios from "axios";
 require("dotenv").config();
 
 interface MapComponentProps {
@@ -11,14 +12,15 @@ const MapComponent: React.FC<MapComponentProps> = ({ location }) => {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
   useEffect(() => {
-    fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-        location
-      )}&key=${apiKey}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        const { lat, lng } = data.results[0].geometry.location;
+    axios
+      .get(`https://maps.googleapis.com/maps/api/geocode/json`, {
+        params: {
+          address: location,
+          key: apiKey,
+        },
+      })
+      .then((response) => {
+        const { lat, lng } = response.data.results[0].geometry.location;
         setMapCenter({ lat, lng });
       })
       .catch((error) => console.error("Error fetching geocoding data:", error));
@@ -49,7 +51,9 @@ const MapContainer: React.FC<MapComponentProps> = ({ location }) => {
       {apiLoaded ? (
         <MapComponent location={location} />
       ) : (
-        <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
+        <LoadScript
+          googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""}
+        >
           <MapComponent location={location} />
         </LoadScript>
       )}
