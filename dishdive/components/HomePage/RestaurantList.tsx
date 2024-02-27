@@ -1,9 +1,18 @@
-import { Restaurant } from "./RestaurantCard";
 import RestaurantCard from "./RestaurantCard";
+
+interface Restaurant {
+  name: string;
+  stars: number;
+  full_address: string;
+  business_id: string;
+  text: string;
+}
 
 interface RestaurantListProps {
   restaurants: Restaurant[];
 }
+
+
 
 const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants }) => {
   return (
@@ -13,8 +22,8 @@ const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants }) => {
           key={index}
           name={restaurant.name}
           stars={restaurant.stars}
-          full_address={restaurant.full_address}
-          business_id={restaurant.business_id}
+          fullAddress={restaurant.full_address}
+          businessId={restaurant.business_id}
           text={restaurant.text}
         />
       ))}
