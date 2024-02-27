@@ -9,6 +9,10 @@ export const generateFakename = () => {
 
 export const splitTextToSentences = (text: string) => {
   const sentences = text.split(/\. |\.\n|\.$/);
-  const firstThreeSentences = sentences.slice(0, 3);
-  return firstThreeSentences.join(". ");
+  if (sentences.length > 5) {
+    const firstFiveSentences = sentences.slice(0, 5);
+    return `${firstFiveSentences.join(". ")}.`;
+  } else {
+    return `${text}`;
+  }
 };

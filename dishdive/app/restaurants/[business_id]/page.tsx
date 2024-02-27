@@ -55,12 +55,18 @@ const mapColumnsToCamelCase = (data: any): RestaurantData => {
   };
 };
 
+interface RestaurantReviewsData {
+  numReviews: number;
+  avgStars: number;
+}
+
 const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
   const businessId = params.business_id;
   const [restaurantData, setRestaurantData] = useState<RestaurantData | null>(
     null
   );
   const [restaurantReviews, setRestaurantReviews] = useState<string[]>([]);
+  const [restaurantAvgStarsAndNumReviews, setRestaurantAvgStarsAndNumReviews] = useState<RestaurantReviewsData>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -89,8 +95,25 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
         });
     };
 
+    const fetchAvgRestaurantStars = () => {
+      axios
+        .get(`${process.env.NEXT_PUBLIC_BE_URL}/restaurant/${businessId}/reviews/count`)
+        .then((response) => {
+          const transformedData: RestaurantReviewsData = {
+            numReviews: response.data.number_of_reviews,
+            avgStars: response.data.avg_stars
+          };
+  
+          setRestaurantAvgStarsAndNumReviews(transformedData);
+        })
+        .catch((error) => {
+          console.error("Error fetching restaurant reviews:", error);
+        });
+    };
+
     fetchRestaurantData();
     fetchRestaurantReviews();
+    fetchAvgRestaurantStars();
   }, [businessId]);
 
   if (loading) {
@@ -101,7 +124,14 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
     return <p>No data found for this restaurant.</p>;
   }
 
-  const { name, stars, categories, fullAddress } = restaurantData;
+  if (!restaurantAvgStarsAndNumReviews) {
+    return <p>No reviews data found for this restaurant.</p>;
+  }
+
+  const { name, categories, fullAddress } = restaurantData;
+  const { numReviews, avgStars } = restaurantAvgStarsAndNumReviews;
+  console.log(restaurantAvgStarsAndNumReviews)
+  console.log(numReviews)
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 grid grid-rows-auto gap-y-10">
@@ -123,8 +153,9 @@ const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
                 </Badge>
               ))}
             </div>
-            <div>
-              <Rating rating={stars} size={40} />
+            <div className="flex items-center">
+              <Rating rating={avgStars} size={40} />
+              <h1 className="text-2xl">({numReviews} Reviews)</h1>
             </div>
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

@@ -17,7 +17,7 @@ const AllReviews: React.FC<AllReviewsProps> = ({ restaurantReviews }) => {
       {restaurantReviews.map((review: string) => (
         <>
           <>
-            <div className="flex items-center mb-2">
+            <div className="flex items-center mt-3 mb-2">
               <Avatar name={generateFakename()} size="25" round />
               <h1 className="ml-3 font-medium">{generateFakename()}</h1>
             </div>
