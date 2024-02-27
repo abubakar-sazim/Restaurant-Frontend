@@ -28,7 +28,7 @@ const Rating: React.FC<RatingProps> = ({ rating, size = 20 }) => {
     for (let i = 0; i < 5 - fullStars - (hasHalfStar ? 1 : 0); i++) {
       stars.push(
         <FaStar
-          className="text-gray-400 mr-2"
+          className="text-white mr-2"
           key={fullStars + (hasHalfStar ? 1 : 0) + i}
           size={size}
         />

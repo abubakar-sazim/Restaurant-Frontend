@@ -15,6 +15,7 @@ const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants }) => {
           stars={restaurant.stars}
           full_address={restaurant.full_address}
           business_id={restaurant.business_id}
+          text={restaurant.text}
         />
       ))}
     </div>

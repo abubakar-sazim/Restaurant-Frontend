@@ -8,6 +8,7 @@ export interface Restaurant {
   stars: number;
   full_address: string;
   business_id: string;
+  text: string;
 }
 
 const RestaurantCard: React.FC<Restaurant> = ({
@@ -15,6 +16,7 @@ const RestaurantCard: React.FC<Restaurant> = ({
   stars,
   full_address,
   business_id,
+  text,
 }) => {
   const generateRandomImage = () => {
     const randomImageIndex = Math.floor(Math.random() * 1000);
@@ -45,6 +47,11 @@ const RestaurantCard: React.FC<Restaurant> = ({
               <div className="flex items-center">
                 <SlLocationPin className="text-green-600 mr-1" />
                 <p className="text-md italic">{full_address}</p>
+              </div>
+              <div>
+                <p className="text-justify text-xs italic border-l-4 border-gray-500 pl-2 py-1 mr-3">
+                  {text}
+                </p>
               </div>
             </div>
             <div className="flex justify-between items-center">

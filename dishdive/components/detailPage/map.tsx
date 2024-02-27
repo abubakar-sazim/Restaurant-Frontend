@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
 require("dotenv").config();
 
-interface Location {
-  location: number;
-  lng: number;
+interface MapComponentProps {
+  location: string;
 }
 
-const MapComponent: React.FC<{ location: Location }> = ({ location }) => {
+const MapComponent: React.FC<MapComponentProps> = ({ location }) => {
   const [mapCenter, setMapCenter] = useState({ lat: 0, lng: 0 });
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
@@ -36,7 +35,7 @@ const MapComponent: React.FC<{ location: Location }> = ({ location }) => {
   );
 };
 
-const MapContainer: React.FC<{ location: Location }> = ({ location }) => {
+const MapContainer: React.FC<MapComponentProps> = ({ location }) => {
   const [apiLoaded, setApiLoaded] = useState(false);
 
   useEffect(() => {
