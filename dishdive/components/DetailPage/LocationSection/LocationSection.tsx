@@ -1,5 +1,5 @@
 import { SlLocationPin } from "react-icons/sl";
-import MapContainer from "./Map/Map";
+import MapContainer from "../Map/Map";
 import React from "react";
 
 interface locationPageProps {

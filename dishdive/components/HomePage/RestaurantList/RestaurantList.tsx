@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard from "../Restaurantcard/RestaurantCard";
 
 interface Restaurant {
   name: string;
@@ -11,8 +11,6 @@ interface Restaurant {
 interface RestaurantListProps {
   restaurants: Restaurant[];
 }
-
-
 
 const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants }) => {
   return (

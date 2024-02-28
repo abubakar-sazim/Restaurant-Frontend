@@ -1,7 +1,6 @@
-import { MdFeedback } from "react-icons/md";
-import HighlightedReview from "./HighlightedReview";
-import AllReviews from "./AllReviews";
 import React from "react";
+import { MdFeedback } from "react-icons/md";
+import ReviewCard from "./ReviewCard";
 
 interface reviewPageProps {
   businessId: string;
@@ -21,12 +20,12 @@ const Reviews: React.FC<reviewPageProps> = ({
         <h1 className="ml-2 font-bold text-lg">Reviews</h1>
       </div>
       <div className="mt-4">
-        <HighlightedReview
+        <ReviewCard
           params={{
             business_id: businessId,
           }}
+          restaurantReviews={restaurantReviews}
         />
-        <AllReviews restaurantReviews={restaurantReviews} />
       </div>
     </div>
   );

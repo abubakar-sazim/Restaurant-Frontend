@@ -4,9 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import RestaurantList from "./RestaurantList";
+import RestaurantList from "./RestaurantList/RestaurantList";
 import { useChatContext } from "@/context/chatContext";
-import RestaurantSkeleton from "./RestaurnatSkeleton";
+import RestaurantSkeleton from "./RestaurantSkeleton/RestaurnatSkeleton";
 
 interface Message {
   type: string;
@@ -21,6 +21,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const [conversationHistory, setConversationHistory] = useState<Message[]>([]);
   const [initialMessagesAdded, setInitialMessagesAdded] = useState(false);
+  const numberOfSkeletons = 3;
 
   useEffect(() => {
     if (conversationHistory.length === 0 && !initialMessagesAdded) {
@@ -109,9 +110,13 @@ const HomePage = () => {
       </Button>
       {loading && (
         <>
-          <RestaurantSkeleton />
-          <RestaurantSkeleton />
-          <RestaurantSkeleton />
+          {loading && (
+            <>
+              {[...Array(numberOfSkeletons)].map((_, index) => (
+                <RestaurantSkeleton key={index} />
+              ))}
+            </>
+          )}
         </>
       )}
       <div className="mt-4">

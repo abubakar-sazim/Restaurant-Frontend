@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
-import Rating from "../Helper/Rating";
+import Rating from "../../Helper/Rating";
 import { SlLocationPin } from "react-icons/sl";
-import { LG_IMG_URL, SM_IMG_URL } from "./homePage.constants";
+import { LG_IMG_URL, SM_IMG_URL } from "./RestaurantCard.constants";
+import { generateRandomImage } from "./RestaurantCard.helpers";
 
 interface Restaurant {
   name: string;
@@ -20,19 +21,6 @@ const RestaurantCard: React.FC<Restaurant> = ({
   businessId,
   text,
 }) => {
-  const generateRandomImage = () => {
-    const randomImageIndex = Math.floor(Math.random() * 1000);
-    const query = encodeURIComponent("restaurant food");
-    const screenWidth = window.innerWidth;
-    const isSmallScreen = screenWidth <= 640;
-
-    if (isSmallScreen) {
-      return `${SM_IMG_URL}${query}&sig=${randomImageIndex}`;
-    } else {
-      return `${LG_IMG_URL}${query}&sig=${randomImageIndex}`;
-    }
-  };
-
   return (
     <div className="w-3/4 mx-auto my-2 p-2 relative">
       <Link href={`/restaurants/${businessId}`} className="hover:opacity-50">

@@ -4,8 +4,8 @@ import axios from "axios";
 import { Progress } from "@radix-ui/react-progress";
 import Reviews from "./Reviews/Reviews";
 import AttributeTable from "./Attributes/Attributes";
-import DetailHead from "./HeaderSection";
-import LocationSection from "./LocationSection";
+import DetailHead from "./HeaderSection/HeaderSection";
+import LocationSection from "./LocationSection/LocationSection";
 
 interface DetailPageProps {
   businessId: string;

@@ -4,12 +4,12 @@ import DetailPage from "@/components/DetailPage/DetailPage";
 
 interface RestaurantPageProps {
   params: {
-    business_id: string;
+    businessId: string;
   };
 }
 
 const RestaurantDetail: React.FC<RestaurantPageProps> = ({ params }) => {
-  const businessId = params.business_id;
+  const businessId = params.businessId;
 
   return <DetailPage businessId={businessId} />;
 };

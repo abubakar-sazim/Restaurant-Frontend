@@ -1,6 +1,6 @@
 import { SlLocationPin } from "react-icons/sl";
-import { Badge } from "../ui/badge";
-import Rating from "../Helper/Rating";
+import { Badge } from "../../ui/badge";
+import Rating from "../../Helper/Rating";
 
 interface headerPageProps {
   name: string;

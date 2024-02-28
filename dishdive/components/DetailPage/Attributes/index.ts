@@ -1,1 +1,1 @@
-export * from './Attributes'
+export * from "./Attributes";

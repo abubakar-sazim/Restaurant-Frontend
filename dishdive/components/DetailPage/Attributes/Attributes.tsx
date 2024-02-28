@@ -3,7 +3,7 @@ import {
   getBooleanIcon,
   getNoiseLevelIcon,
   getWifiBooleanIcon,
-} from "./IconLoader";
+} from "./Attributes.helper";
 import { RestaurantData } from "../Helper/helper";
 
 const AttributeTable = (restaurantData: RestaurantData) => {
