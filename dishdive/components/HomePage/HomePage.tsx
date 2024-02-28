@@ -110,13 +110,9 @@ const HomePage = () => {
       </Button>
       {loading && (
         <>
-          {loading && (
-            <>
-              {[...Array(numberOfSkeletons)].map((_, index) => (
-                <RestaurantSkeleton key={index} />
-              ))}
-            </>
-          )}
+          {[...Array(numberOfSkeletons)].map((_, index) => (
+            <RestaurantSkeleton key={index} />
+          ))}
         </>
       )}
       <div className="mt-4">

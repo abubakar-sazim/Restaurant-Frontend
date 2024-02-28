@@ -22,7 +22,7 @@ const Reviews: React.FC<reviewPageProps> = ({
       <div className="mt-4">
         <ReviewCard
           params={{
-            business_id: businessId,
+            businessId: businessId,
           }}
           restaurantReviews={restaurantReviews}
         />
