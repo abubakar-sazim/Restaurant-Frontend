@@ -27,8 +27,6 @@ const AttributeTable = (restaurantData: RestaurantData) => {
   } = restaurantData;
   const wifi = wiFi === "o" ? "no" : wiFi === "ree" ? "free" : wiFi;
 
-  console.log(businessAcceptsCreditCards);
-
   return (
     <div className="p-4 mt-2">
       <div className="flex items-center">
