@@ -1,9 +1,5 @@
-import Image from "next/image";
+import HomePage from "@/components/HomePage/HomePage";
 
 export default function Home() {
-  return (
-    <div>
-      <h1>Welcome to DishDive.</h1>
-    </div>
-  );
+  return <HomePage />;
 }
